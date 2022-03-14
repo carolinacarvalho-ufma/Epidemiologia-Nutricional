@@ -17,16 +17,16 @@ graph box pbolsa, ytitle (Escore de propensão) by(bolsa)
 
 *Passo 4: Estimando o efeito causal médio
 
-*Realizando a ponderação pelo inverso da probabilidade seleção para as variáveis desbalanceadas
+*Realizando a ponderação pelo inverso da probabilidade de seleção para as variáveis desbalanceadas
 gen ipbolsa= 1/pbolsa if bolsa==1
 replace ipbolsa= 1/(1 - pbolsa) if bolsa==0
 regress am bolsa [pw=ipbolsa]
 
-*Realizando a ponderação pelo inverso da probabilidade seleção para as variáveis desbalanceadas 
+*Realizando a ponderação pelo inverso da probabilidade de seleção para as variáveis desbalanceadas 
 * pelo comando teffects
-teffects ipw (am) (bolsa escolarmae rendalog)
+teffects ipw (am) (bolsa i.escolarmae rendalog)
 
-*Passo 5: Verificando a qualidade do balanceamento
+*Passo 5: Verificando se o balanceamento foi obtido
 tebalance summarize
 tebalance density rendalog 
 
